@@ -115,6 +115,18 @@ app.use('*', (req, res) => {
 // Centralized Error Handler
 app.use(errorHandler);
 
+// Centralized Error Handler
+app.use(errorHandler);
+
+// 1. Serve Vite frontend static files
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+
+// 2. Route all other requests to frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/dist', 'index.html'));
+});
+
+
 // Start Server after connecting to Database
 const startServer = async () => {
   try {
